@@ -1,5 +1,8 @@
 package it.polito.tdp.metrodeparis.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.javadocmd.simplelatlng.LatLng;
 
 public class Fermata {
@@ -7,15 +10,13 @@ public class Fermata {
 	private int idFermata;
 	private String nome;
 	private LatLng coords;
+	private Map<String, FermataSuLinea> fermateSuLinea;
 
 	public Fermata(int idFermata, String nome, LatLng coords) {
 		this.idFermata = idFermata;
 		this.nome = nome;
 		this.coords = coords;
-	}
-	
-	public Fermata(int idFermata) {
-		this.idFermata = idFermata;
+		this.fermateSuLinea= new HashMap<>();
 	}
 
 	public int getIdFermata() {
@@ -65,4 +66,16 @@ public class Fermata {
 	public String toString() {
 		return nome;
 	}
+
+	public void addFermataSuLinea(FermataSuLinea fermataSuLinea) {
+
+		if(!fermateSuLinea.containsKey("" + fermataSuLinea.getIdFermata() + ", " + fermataSuLinea.getLinea().getId_linea())){
+			fermateSuLinea.put("" + fermataSuLinea.getIdFermata() + ", " + fermataSuLinea.getLinea().getId_linea(), fermataSuLinea);
+		}
+	}
+
+	public Map<String, FermataSuLinea> getFermateSuLinea() {
+		return fermateSuLinea;
+	}
+
 }
